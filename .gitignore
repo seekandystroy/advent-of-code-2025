@@ -57,3 +57,6 @@ build-iPhoneSimulator/
 
 # vscode stuff
 .vscode
+
+# advent of code inputs by request of the creator
+input.txt
