@@ -20,7 +20,7 @@ module Day01
       zero_count += 1 if ptr == 0
     end
 
-    puts zero_count
+    zero_count
   end
 
   def self.part2
@@ -43,6 +43,6 @@ module Day01
             end
     end
 
-    puts zero_count
+    zero_count
   end
 end
