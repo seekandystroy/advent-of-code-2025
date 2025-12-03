@@ -7,6 +7,12 @@ module Day03
         .sum
   end
 
+  def self.part2
+    File.readlines('day03/test_input.txt')
+        .map { |line| joltage_n(line, 12) }
+        .sum
+  end
+
   def self.joltage(line)
     chars = line.chomp.chars
     frst_indices = Array.new(10)
@@ -45,6 +51,26 @@ module Day03
     end
   end
 
+  def self.joltage_n(line, n = 2)
+    nums = line.chomp.chars.map(&:to_i)
+    max_idx = nums.size - 1
+    joltage = 0
+    ptr = 0
+
+    i = 1
+    while i <= n
+      check_slice = nums[ptr..(max_idx - n + i)]
+      max = check_slice.max
+      ptr += check_slice.index(max) + 1
+      joltage += max * (10**(n - i))
+
+      i += 1
+    end
+
+    joltage
+  end
+
   private_class_method :joltage
   private_class_method :joltage_from_indices
+  private_class_method :joltage_n
 end

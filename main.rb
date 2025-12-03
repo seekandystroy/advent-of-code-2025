@@ -15,6 +15,8 @@ puts case ARGV[0]
        Day02.part2
      when '0301'
        Day03.part1
+     when '0302'
+       Day03.part2
      else
        'Please choose a day and part to run, in the format DDPP.'
      end
