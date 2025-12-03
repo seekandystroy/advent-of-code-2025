@@ -9,20 +9,40 @@ module Day03
 
   def self.part2
     File.readlines('day03/test_input.txt')
-        .map { |line| joltage_n(line, 12) }
+        .map { |line| joltage(line, 12) }
         .sum
   end
 
-  def self.joltage(line)
-    chars = line.chomp.chars
+  def self.joltage(line, n = 2)
+    nums = line.chomp.chars.map(&:to_i)
+    max_idx = nums.size - 1
+    joltage = 0
+    ptr = 0
+
+    i = 1
+    while i <= n
+      check_slice = nums[ptr..(max_idx - n + i)]
+      max = check_slice.max
+      ptr += check_slice.index(max) + 1
+      joltage += max * (10**(n - i))
+
+      i += 1
+    end
+
+    joltage
+  end
+
+  # Initial solution used to solve part 1, keeping for history
+  def self.joltage_with_ptrs(line)
+    nums = line.chomp.chars.map(&:to_i)
     frst_indices = Array.new(10)
     scnd_indices = Array.new(10)
 
     i = 0
-    until i == chars.size
-      ri = chars.size - 1 - i
-      cur = chars[i].to_i
-      rcur = chars[ri].to_i
+    until i == nums.size
+      ri = nums.size - 1 - i
+      cur = nums[i]
+      rcur = nums[ri]
 
       frst_indices[cur] = i unless frst_indices[cur]
       scnd_indices[rcur] = ri unless scnd_indices[rcur]
@@ -51,26 +71,7 @@ module Day03
     end
   end
 
-  def self.joltage_n(line, n = 2)
-    nums = line.chomp.chars.map(&:to_i)
-    max_idx = nums.size - 1
-    joltage = 0
-    ptr = 0
-
-    i = 1
-    while i <= n
-      check_slice = nums[ptr..(max_idx - n + i)]
-      max = check_slice.max
-      ptr += check_slice.index(max) + 1
-      joltage += max * (10**(n - i))
-
-      i += 1
-    end
-
-    joltage
-  end
-
   private_class_method :joltage
+  private_class_method :joltage_with_ptrs
   private_class_method :joltage_from_indices
-  private_class_method :joltage_n
 end
