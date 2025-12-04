@@ -4,7 +4,22 @@ module Day04
   def self.part1
     grid = grid_from_file(File.new('day04/input.txt'))
 
-    count_accessible_rolls(grid)
+    accessible_rolls(grid).size
+  end
+
+  def self.part2
+    grid = grid_from_file(File.new('day04/input.txt'))
+
+    count = 0
+    rolls = accessible_rolls(grid)
+    until rolls.size == 0
+      count += rolls.size
+
+      rolls.each { |roll| grid[roll.first][roll.last] = '.' }
+      rolls = accessible_rolls(grid)
+    end
+
+    count
   end
 
   def self.grid_from_file(file)
@@ -19,22 +34,22 @@ module Day04
     grid
   end
 
-  def self.count_accessible_rolls(grid)
-    count = 0
+  def self.accessible_rolls(grid)
+    rolls = []
     row = 0
     col = 0
 
     while row < grid.size
       col = 0
       while col < grid[row].size
-        count += 1 if grid[row][col] == '@' && adjacent_rolls(grid, row, col) < 4
+        rolls << [row, col] if grid[row][col] == '@' && adjacent_rolls(grid, row, col) < 4
 
         col += 1
       end
       row += 1
     end
 
-    count
+    rolls
   end
 
   def self.adjacent_rolls(grid, row, col)
@@ -55,6 +70,6 @@ module Day04
   end
 
   private_class_method :grid_from_file
-  private_class_method :count_accessible_rolls
+  private_class_method :accessible_rolls
   private_class_method :adjacent_rolls
 end
