@@ -13,5 +13,8 @@ Style/Documentation:
 Style/NumericPredicate:
   Enabled: false
 
+Style/ZeroLengthPredicate:
+  Enabled: false
+
 Metrics/AbcSize:
   Enabled: false
