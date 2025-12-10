@@ -9,6 +9,7 @@ require_relative('day06/day06')
 require_relative('day07/day07')
 require_relative('day08/day08')
 require_relative('day09/day09')
+require_relative('day10/day10')
 
 puts case ARGV[0]
      when '0101'
@@ -45,6 +46,8 @@ puts case ARGV[0]
        Day08.part2
      when '0901'
        Day09.part1
+     when '1001'
+       Day10.part1
      else
        'Please choose a day and part to run, in the format DDPP.'
      end
