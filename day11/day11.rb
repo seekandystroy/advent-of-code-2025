@@ -8,7 +8,7 @@ module Day11
                   [nodes.first, nodes[1..]]
                 end
 
-    dfs_to_out(nodes, {})
+    dfs(nodes, {}, 'you', 'out')
   end
 
   def self.part2
@@ -29,16 +29,7 @@ module Day11
       (paths_to_fft_no_dac * paths_from_fft_to_dac * paths_from_dac_to_out)
   end
 
-  def self.dfs_to_out(nodes, visited, cur_node = 'you')
-    return 1 if cur_node == 'out'
-    return visited[cur_node] if visited[cur_node]
-
-    visited[cur_node] = nodes[cur_node].sum do |child|
-      dfs_to_out(nodes, visited, child)
-    end
-  end
-
-  def self.dfs(nodes, visited, cur_node = 'you', end_node = 'out')
+  def self.dfs(nodes, visited, cur_node, end_node)
     return 1 if cur_node == end_node
     return visited[cur_node] if visited[cur_node]
 
@@ -47,6 +38,5 @@ module Day11
     end
   end
 
-  private_class_method :dfs_to_out
   private_class_method :dfs
 end
